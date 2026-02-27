@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  @page {
+    size: 440px;
+    margin: 0;
+  }
+  
+  body {
+    font-family: 'Heebo', sans-serif;
+    background: #0a0a0f;
+    color: #fff;
+    width: 440px;
+    padding: 0;
+  }
+  
+  .container {
+    background: linear-gradient(180deg, #0a0a0f 0%, #0d1117 50%, #0a0a0f 100%);
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .container::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .brand-icon {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: #0a0a0f;
+  }
+  
+  .brand-text {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #00d4ff;
+    text-transform: uppercase;
+  }
+  
+  .brand-sub {
+    font-size: 10px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 1px;
+    margin-top: 1px;
+  }
+  
+  .date-badge {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 500;
+  }
+  
+  .title-section {
+    text-align: center;
+    margin-bottom: 22px;
+  }
+  
+  .title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  
+  .subtitle {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  
+  .market-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 22px;
+    justify-content: center;
+  }
+  
+  .market-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    justify-content: center;
+  }
+  
+  .market-ticker {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+  }
+  
+  .market-change {
+    font-size: 13px;
+    font-weight: 700;
+  }
+  
+  .market-change.negative { color: #ff4757; }
+  .market-change.positive { color: #2ed573; }
+  
+  .market-arrow { font-size: 11px; }
+  
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  
+  .section-title::before,
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+  }
+  
+  .section-title span {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #00d4ff;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  
+  .stock-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .stock-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    border-radius: 0 14px 14px 0;
+  }
+  
+  .stock-card.bullish::before { background: linear-gradient(180deg, #2ed573, #17a551); }
+  .stock-card.bearish::before { background: linear-gradient(180deg, #ff4757, #c0392b); }
+  .stock-card.neutral::before { background: linear-gradient(180deg, #ffa502, #e67e22); }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  
+  .stock-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .ticker-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .ticker {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+  }
+  
+  .strategy-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  
+  .strategy-badge.ep { background: rgba(0, 212, 255, 0.15); color: #00d4ff; border: 1px solid rgba(0, 212, 255, 0.25); }
+  .strategy-badge.vcp { background: rgba(155, 89, 182, 0.15); color: #bb6bd9; border: 1px solid rgba(155, 89, 182, 0.25); }
+  .strategy-badge.power { background: rgba(255, 165, 2, 0.15); color: #ffa502; border: 1px solid rgba(255, 165, 2, 0.25); }
+  
+  .company-name {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 2px;
+    font-weight: 400;
+  }
+  
+  .price-section {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .price {
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+  }
+  
+  .change {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-top: 3px;
+  }
+  
+  .change.positive { background: rgba(46, 213, 115, 0.12); color: #2ed573; }
+  .change.negative { background: rgba(255, 71, 87, 0.12); color: #ff4757; }
+  
+  .description {
+    font-size: 12.5px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 14px;
+    font-weight: 400;
+  }
+  
+  .description strong {
+    color: rgba(255,255,255,0.85);
+    font-weight: 600;
+  }
+  
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  
+  .tag {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .tag.catalyst { background: rgba(0, 212, 255, 0.1); color: #00d4ff; border: 1px solid rgba(0, 212, 255, 0.15); }
+  .tag.score { background: rgba(46, 213, 115, 0.1); color: #2ed573; border: 1px solid rgba(46, 213, 115, 0.15); }
+  .tag.risk { background: rgba(255, 165, 2, 0.1); color: #ffa502; border: 1px solid rgba(255, 165, 2, 0.15); }
+  .tag.warning { background: rgba(255, 71, 87, 0.1); color: #ff4757; border: 1px solid rgba(255, 71, 87, 0.15); }
+  .tag.info { background: rgba(155, 89, 182, 0.1); color: #bb6bd9; border: 1px solid rgba(155, 89, 182, 0.15); }
+  
+  .risk-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+  
+  .risk-label {
+    font-size: 10px;
+    color: rgba(255,255,255,0.35);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  
+  .risk-dots {
+    display: flex;
+    gap: 4px;
+  }
+  
+  .risk-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+  }
+  
+  .risk-dot.active.low { background: #2ed573; }
+  .risk-dot.active.medium { background: #ffa502; }
+  .risk-dot.active.high { background: #ff4757; }
+  
+  .disclaimer {
+    margin-top: 22px;
+    padding: 14px;
+    background: rgba(255, 165, 2, 0.04);
+    border: 1px solid rgba(255, 165, 2, 0.1);
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .disclaimer p {
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.3);
+    line-height: 1.6;
+  }
+  
+  .disclaimer .warn-icon {
+    color: #ffa502;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  
+  .footer {
+    margin-top: 16px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .footer-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  }
+  
+  .footer-text {
+    font-size: 9px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 2px;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  
+  <div class="header">
+    <div class="brand">
+      <div class="brand-icon">α</div>
+      <div>
+        <div class="brand-text">Alpha Swing Algo</div>
+        <div class="brand-sub">AI-Powered Trading</div>
+      </div>
+    </div>
+    <div class="date-badge">יום שישי, 27 בפברואר 2026</div>
+  </div>
+  
+  <div class="title-section">
+    <div class="title">סקירה יומית</div>
+    <div class="subtitle">Daily Market Review</div>
+  </div>
+  
+  <div class="market-bar">
+    <div class="market-item">
+      <span class="market-ticker">SPY</span>
+      <span class="market-arrow">▼</span>
+      <span class="market-change negative">-0.47%</span>
+    </div>
+    <div class="market-item">
+      <span class="market-ticker">QQQ</span>
+      <span class="market-arrow">▼</span>
+      <span class="market-change negative">-0.82%</span>
+    </div>
+  </div>
+  
+  <div class="section-title">
+    <span>⭐ TOP 3 — מניות מובילות</span>
+  </div>
+  
+  <div class="stock-card bullish">
+    <div class="card-header">
+      <div class="stock-info">
+        <div class="ticker-row">
+          <span class="ticker">COGT</span>
+          <span class="strategy-badge ep">EP — BREAKOUT</span>
+        </div>
+        <span class="company-name">Cogent Biosciences 🧬</span>
+      </div>
+      <div class="price-section">
+        <span class="price">$39.31</span>
+        <span class="change positive">+0.33%</span>
+      </div>
+    </div>
+    <div class="description">
+      הגשת <strong>NDA ל-FDA</strong> עבור bezuclastinib + קבלת <strong>BTD מ-FDA</strong>, בסיס <strong>3-4 שבועות</strong> אחרי גאפ, ווליום מתרוצץ, ממוצעות מסודרות <strong>10&lt;20&lt;50</strong>.
+    </div>
+    <div class="tags">
+      <span class="tag catalyst">🔥 NDA הוגש — קטליסט בקרוב</span>
+      <span class="tag score">📊 אלגוסקור מהגבוהים בשוק</span>
+      <span class="tag info">💊 BTD מ-FDA</span>
+      
+    </div>
+    <div class="risk-row">
+      <span class="risk-label">רמת סיכון</span>
+      <div class="risk-dots">
+        <div class="risk-dot active low"></div>
+        <div class="risk-dot active low"></div>
+        <div class="risk-dot"></div>
+        <div class="risk-dot"></div>
+        <div class="risk-dot"></div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="stock-card bullish">
+    <div class="card-header">
+      <div class="stock-info">
+        <div class="ticker-row">
+          <span class="ticker">SRRK</span>
+          <span class="strategy-badge vcp">VCP — CONSOLIDATION</span>
+        </div>
+        <span class="company-name">Scholar Rock (SMA) 🧬</span>
+      </div>
+      <div class="price-section">
+        <span class="price">$47.31</span>
+        <span class="change positive">+0.62%</span>
+      </div>
+    </div>
+    <div class="description">
+      <strong>VCP קלאסי</strong> בשלבים מתקדמים, <strong>11 אלגוסימס Strong Buy</strong>, טווח עד <strong>$51.2</strong>. Apitegromab — <strong>first-in-class</strong> ל-SMA.
+    </div>
+    <div class="tags">
+      <span class="tag info">📐 VCP חזק לפי שלבים</span>
+      <span class="tag score">🤖 11 אלגוסימס Strong Buy</span>
+      <span class="tag catalyst">🧪 First-in-class</span>
+      
+    </div>
+    <div class="risk-row">
+      <span class="risk-label">רמת סיכון</span>
+      <div class="risk-dots">
+        <div class="risk-dot active low"></div>
+        <div class="risk-dot active low"></div>
+        <div class="risk-dot"></div>
+        <div class="risk-dot"></div>
+        <div class="risk-dot"></div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="stock-card neutral">
+    <div class="card-header">
+      <div class="stock-info">
+        <div class="ticker-row">
+          <span class="ticker">ERAS</span>
+          <span class="strategy-badge power">POWER — POWER PLAY</span>
+        </div>
+        <span class="company-name">Erasca (RAS/MAPK Oncology) 🧬</span>
+      </div>
+      <div class="price-section">
+        <span class="price">$13.54</span>
+        <span class="change negative">-0.51%</span>
+      </div>
+    </div>
+    <div class="description">
+      <strong>Naporafenib</strong> בפאזה 3 למלנומה NRAS, <strong>מומנטום קיצוני</strong> — נסחרת פי 2+ מיעד. בסיס קטן אחרי ראן חזק, <strong>סיכון לתיקון חד</strong>.
+    </div>
+    <div class="tags">
+      <span class="tag catalyst">🔬 פאזה 3 שמתקרבת</span>
+      <span class="tag warning">⚠️ סיכון לתיקון חד</span>
+      <span class="tag warning">🎯 סיכון גבוה מהמצופה</span>
+      
+    </div>
+    <div class="risk-row">
+      <span class="risk-label">רמת סיכון</span>
+      <div class="risk-dots">
+        <div class="risk-dot active high"></div>
+        <div class="risk-dot active high"></div>
+        <div class="risk-dot active high"></div>
+        <div class="risk-dot active high"></div>
+        <div class="risk-dot"></div>
+        
+      </div>
+    </div>
+  </div>
+  
+  <div class="disclaimer">
+    <div class="warn-icon">⚠️</div>
+    <p>המידע המוצג בדוח זה הוא לצורכי לימוד ומידע כללי בלבד.
+    אין באמור משום ייעוץ השקעות, שיווק השקעות, או המלצה לרכישה/מכירה של ניירות ערך כהגדרתם בחוק הסדרת העיסוק בייעוץ השקעות, בשיווק השקעות ובניהול תיקי השקעות, תשנ"ה-1995.
+    כל פעולה בשוק ההון נעשית על אחריות המשתמש בלבד.
+    ביצועי עבר אינם מעידים על תוצאות עתידיות.</p>
+  </div>
+  
+  <div class="footer">
+    <div class="footer-line"></div>
+    <span class="footer-text">Alpha Swing Algo — V.3.0</span>
+    <div class="footer-line"></div>
+  </div>
+  
+</div>
+</body>
+</html>
